@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <style>
+        .policy-container {
+        padding: 80px 0;
+    }
+
+    .page-header {
+        margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+        font-weight: 700;
+    }
+
+    .page-header .lead {
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        color: #495057;
+    }
+
+    .policy-card {
+        background: #ffffff;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .policy-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .policy-card .card-header {
+        background-color: transparent;
+        border-bottom: 1px solid #dee2e6;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .policy-card .card-header h3 {
+        margin-bottom: 0;
+        font-weight: 600;
+    }
+
+    .policy-card .card-header .bi {
+        font-size: 1.75rem;
+        margin-right: 15px;
+        color: #007bff;
+    }
+
+    .policy-card .card-body {
+        padding: 1.5rem;
+        line-height: 1.8;
+    }
+
+    .timeline {
+        position: relative;
+        padding-left: 30px;
+    }
+
+    .timeline-step {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+
+    .timeline-step:last-child {
+        margin-bottom: 0;
+    }
+
+    .timeline-step:before {
+        content: '';
+        position: absolute;
+        left: -30px;
+        top: 5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #007bff;
+        border: 3px solid #ffffff;
+    }
+
+    .timeline-step h5 {
+        font-weight: 600;
+    }
+
+    .highlight-box {
+        background-color: #e9ecef;
+        border-left: 5px solid #007bff;
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+    
+    .contact-box {
+        background-color: #212529;
+        color: #ffffff;
+        padding: 2rem;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .contact-box a {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+</style>
+    
+{% endblock head %}
+    
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            
+            <!-- 30-Day Return Policy Card -->
+            <div class="policy-card">
+                <div class="card-header">
+                    <i class="bi bi-calendar-check"></i>
+                    <h3>30-Day Return Window</h3>
+                </div>
+                <div class="card-body">
+                    <p>We gladly accept returns within <strong>30 days</strong> of the original purchase date. To be eligible for a return, your item must be unused, in the same condition that you received it, and in its original packaging. Please include the order confirmation or packing slip with your return.</p>
+                </div>
+            </div>
+
+            <!-- How to Initiate a Return Card -->
+            <div class="policy-card">
+                <div class="card-header">
+                    <i class="bi bi-box-arrow-in-left"></i>
+                    <h3>How to Initiate a Return</h3>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        <div class="timeline-step">
+                            <h5>1. Contact Us</h5>
+                            <p>Email our returns team at <a href="mailto:rexbmxbikecollection@gmail.com">rexbmxbikecollection@gmail.com</a> to start the process.</p>
+                        </div>
+                        <div class="timeline-step">
+                            <h5>2. Get Authorization</h5>
+                            <p>Once approved, you will receive a Return Authorization (RA) number and detailed instructions.</p>
+                        </div>
+                        <div class="timeline-step">
+                            <h5>3. Ship the Item</h5>
+                            <p>Securely pack the item with its original packaging, write the RA number on the outside of the box, and ship it back to us. Return shipping costs are the customer's responsibility. We recommend using a trackable service.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Refund Process Card -->
+            <div class="policy-card">
+                <div class="card-header">
+                    <i class="bi bi-cash-coin"></i>
+                    <h3>Refund Process</h3>
+                </div>
+                <div class="card-body">
+                    <p>Upon receiving and inspecting your return, we will email you to confirm its status. If approved, your refund will be processed, and a credit will be applied to your original payment method within <strong>10 business days</strong>.</p>
+                </div>
+            </div>
+            
+            <!-- Exceptions Card -->
+            <div class="policy-card">
+                <div class="card-header">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <h3>Exceptions & Special Cases</h3>
+                </div>
+                <div class="card-body">
+                    <h5 class="fw-bold">Non-Refundable Items:</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-x-circle text-danger me-2"></i>Opened or used products</li>
+                        <li><i class="bi bi-x-circle text-danger me-2"></i>Gift cards</li>
+                    </ul>
+                    <hr class="my-3">
+                    <h5 class="fw-bold">Damaged or Defective Items:</h5>
+                    <p>If you receive a damaged or defective item, please contact us immediately at <a href="mailto:rexbmxbikecollection@gmail.com">rexbmxbikecollection@gmail.com</a> with photos and details of the issue. We will work swiftly to resolve it.</p>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="contact-box mt-5">
+                <h3 class="mb-3">Have Questions?</h3>
+                <p class="lead mb-3">Our team is ready to assist you. Please don't hesitate to reach out.</p>
+                <p class="mb-0">
+                    <strong>Email:</strong> <a href="mailto:rexbmxbikecollection@gmail.com">rexbmxbikecollection@gmail.com</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+    

@@ -1,0 +1,385 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+		<!-- page banner area start -->
+		<div class="page-banner">
+			<img src="{% static 'bg2.jpg' %}" width="1903" height="297" alt="Page Banner" />
+		</div>
+		<!-- page banner area end -->
+		<!-- cart page content section start -->
+	<section class="cart-page section-padding">
+    <div class="container">
+        <form action="{% url 'cart:place_order' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+<div class="col-md-6">
+    <div class="row">
+        <div class="single-check responsive">
+            <div class="single-input p-bottom50 clearfix row">
+                <div class="col-12">
+                    <div class="check-title">
+                        <h3>Billing Address</h3>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>First Name:</label>
+                    <div class="input-text">
+                        <input type="text" name="billing_first_name" id="billing_first_name" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Last Name:</label>
+                    <div class="input-text">
+                        <input type="text" name="billing_last_name" id="billing_last_name" required />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label>Company Name:</label>
+                    <div class="input-text">
+                        <input type="text" name="billing_company" id="billing_company" />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label>Address:</label>
+                    <div class="input-text">
+                        <input type="text" name="billing_address" id="billing_address" required />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label>City/Town:</label>
+                    <div class="input-text">
+                        <input type="text" name="billing_city" id="billing_city" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Email:</label>
+                    <div class="input-text">
+                        <input type="email" name="billing_email" id="billing_email" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Phone:</label>
+                    <div class="input-text">
+                        <input type="text" name="billing_phone" id="billing_phone" required />
+                    </div>
+                </div>
+
+                <div class="col-12" style="margin-bottom: 25px;">
+                    <div class="form-check">
+                        <input type="checkbox" id="sameAsBillingCheckbox" class="form-check-input">
+                        <label for="sameAsBillingCheckbox" class="form-check-label" style="cursor: pointer;">
+                            My shipping address is the same as my billing address
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="shipping_address_form" class="single-input clearfix row">
+                <div class="col-12">
+                    <div class="check-title">
+                        <h3>Shipping Address</h3>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>First Name:</label>
+                    <div class="input-text">
+                        <input type="text" name="shipping_first_name" id="shipping_first_name" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Last Name:</label>
+                    <div class="input-text">
+                        <input type="text" name="shipping_last_name" id="shipping_last_name" required />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label>Company Name:</label>
+                    <div class="input-text">
+                        <input type="text" name="shipping_company" id="shipping_company" />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label>Address:</label>
+                    <div class="input-text">
+                        <input type="text" name="shipping_address" id="shipping_address" required />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label>City/Town:</label>
+                    <div class="input-text">
+                        <input type="text" name="shipping_city" id="shipping_city" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Email:</label>
+                    <div class="input-text">
+                        <input type="email" name="shipping_email" id="shipping_email" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Phone:</label>
+                    <div class="input-text">
+                        <input type="text" name="shipping_phone" id="shipping_phone" />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label>Notes:</label>
+                    <div class="input-text margin-none">
+                        <textarea name="message" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                <div class="col-md-6">
+                    <div class="single-check p-bottom50 clearfix">
+                        <div class="check-title">
+                            <h3>Your Orders</h3>
+                        </div>
+                        <div class="table-responsive table-two">
+                            <table class="order-table text-center">
+                                <!-- ... your order table ... -->
+								<thead>
+									<tr>
+										<th>Product</th>
+										<th>Quantity</th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for cart_item in cart_items %}
+									<tr>
+										<td class="td-text">
+											<div class="trash">
+												<a href="{% url 'cart:remove_cart_item' cart_item.product.id %}"><i class="fa fa-trash"></i></a>
+											</div>
+											<div class="order-dsc">
+												<p><a href="{{cart_item.product.get_url}}">{{cart_item.product.product_name}}</a></p>
+											</div>
+										</td>
+										<td>
+											<div class="qty-input">
+												<form action="#">
+													<label>{{cart_item.quantity}}</label>
+												</form>
+											</div>
+										</td>
+										<td>${{cart_item.product.price}}</td>
+									</tr>
+									{% endfor %}		
+								</tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="single-check p-bottom50">
+                        <div class="check-title">
+                            <h3>Coupon Code</h3>
+                        </div>
+                        <div class="single-input check-coupon">
+                            <div class="input-text">
+                                <input type="text" name="coupon" id="coupon-input" />
+                            </div>
+                            <button type="button" id="apply-coupon-btn" class="btn-style2">Apply</button>
+                        </div>
+                        <div id="coupon-message" style="margin-top: 10px;"></div>
+                    </div>
+
+                    <div class="single-check p-bottom50">
+                        <div class="check-title">
+                            <h3>Cart Totals</h3>
+                        </div>
+						<div class="subtotal clearfix">
+							<p>Cart Subtotal <strong class="floatright">${{ total|floatformat:2 }}</strong></p>
+                            {% if discount_amount > 0 %}
+                                <p style="color: green;">
+                                    Coupon Discount
+                                    <strong id="discount-amount" class="floatright">- ${{ discount_amount|floatformat:2 }}</strong>
+                                </p>
+                            {% endif %}
+							{% if total >= 500 %}
+							<p>Shipping <strong class="floatright">free delivery</strong></p>
+							{% else %}
+							<p>Total <strong class="floatright"><span>${{ shipping_charge|floatformat:2  }}</span></strong></p>
+							{% endif %}
+							<div class="total clearfix">
+								<p>Order Total <strong class="floatright">${{ order.order_total|floatformat:2 }}</strong></p>
+							</div>
+								
+						</div>
+                            <!-- ... cart totals ... -->
+                        
+                    </div>
+
+                    <div class="single-check accordion-one">
+                        <ul id="accordion" class="panel-group clearfix">
+                            <li class="panel">
+                                <div data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                <div class="custom-radio">
+                                    <input id="applepay" type="radio" name="payment_method" value="Apple Pay">
+                                    <label for="applepay"><span>Apple Pay</span></label>
+                                </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapse1" data-bs-parent="#accordion">
+										<div class="prayment-dsc">
+											<p></p>
+											<div class="mayment-card">
+												<ul>
+													<li><a href="#"><img src="{% static 'applepay.jpeg' %}" width="39" height="27" alt="Apple Pay" /></a></li>
+												</ul>
+											</div>
+										</div>
+								</div>
+                                <!-- ... -->
+                            </li>
+                            <li class="panel">
+                                <div data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                <div class="custom-radio">
+                                    <input id="chime" type="radio" name="payment_method" value="Chime">
+                                    <label for="chime"><span>Chime</span></label>
+                                </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapse2" data-bs-parent="#accordion">
+										<div class="prayment-dsc">
+											<p></p>
+											<div class="mayment-card">
+												<ul>
+													<li><a href="#"><img src="{% static 'chime.jpeg' %}" width="39" height="27" alt="Chime" /></a></li>
+												</ul>
+											</div>
+										</div>
+								</div>
+                                <!-- ... -->
+                            </li>
+                            <li class="panel">
+                                <div data-bs-toggle="collapse" data-bs-target="#collapse3">
+                                <div class="custom-radio">
+                                    <input id="Zellepay" type="radio" name="payment_method" value="Zellepay">
+                                    <label for="Zellepay"><span>Zelle Pay</span></label>
+                                </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapse3" data-bs-parent="#accordion">
+										<div class="prayment-dsc">
+											<p></p>
+											<div class="mayment-card">
+												<ul>
+													<li><a href="#"><img src="{% static 'zelle.jpeg' %}" width="39" height="27" alt="Zelle Pay" /></a></li>
+												</ul>
+											</div>
+										</div>
+								</div>
+                                <!-- ... -->
+                            </li>
+                            <li class="panel">
+                                <div data-bs-toggle="collapse" data-bs-target="#collapse4">
+                                <div class="custom-radio">
+                                    <input id="bank_transfer" type="radio" name="payment_method" value="bank transfer">
+                                    <label for="bank_transfer"><span>Bank Transfer</span></label>
+                                </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapse4" data-bs-parent="#accordion">
+										<div class="prayment-dsc">
+											<p></p>
+											<div class="mayment-card">
+												<ul>
+													<li><a href="#"><img src="{% static 'bank_transfer.jpeg' %}" width="39" height="27" alt="Bank_Transfer" /></a></li>
+												</ul>
+											</div>
+										</div>
+								</div>
+                                <!-- ... -->
+                            </li>
+                        </ul>
+                        <p>Any Payment Issues Encounter Contact Seller Via Email or Tel</p>
+                        <div class="order-btn">
+                            <button class="btn-style" type="submit">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const checkbox = document.getElementById('sameAsBillingCheckbox');
+    const shippingForm = document.getElementById('shipping_address_form');
+    const fieldsToSync = [
+        'first_name', 'last_name', 'company', 
+        'address', 'city', 'email', 'phone'
+    ];
+
+    checkbox.addEventListener('change', function() {
+        if (this.checked) {
+            fieldsToSync.forEach(function(field) {
+                const billingField = document.getElementById('billing_' + field);
+                const shippingField = document.getElementById('shipping_' + field);
+                
+                if (billingField && shippingField) {
+                    shippingField.value = billingField.value;
+                    shippingField.readOnly = true;
+                }
+            });
+            shippingForm.classList.add('shipping-locked');
+        } else {
+           
+            fieldsToSync.forEach(function(field) {
+                const shippingField = document.getElementById('shipping_' + field);
+                
+                if (shippingField) {
+                    shippingField.value = '';
+                    shippingField.readOnly = false;
+                }
+            });
+            shippingForm.classList.remove('shipping-locked');
+        }
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const applyBtn = document.getElementById('apply-coupon-btn');
+    const couponInput = document.getElementById('coupon-input');
+    const couponMessageDiv = document.getElementById('coupon-message');
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    applyBtn.addEventListener('click', function() {
+        const couponCode = couponInput.value.trim();
+
+        if (!couponCode) {
+            couponMessageDiv.innerHTML = '<p style="color: red;">Please enter a coupon code.</p>';
+            return;
+        }
+
+        // Use the Fetch API to send the data to your view
+        fetch("{% url 'cart:apply_coupon' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': csrfToken,
+            },
+            body: `coupon_code=${couponCode}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                couponMessageDiv.innerHTML = `<p style="color: green;">${data.message}</p>`;
+                // Reload the page to see the updated totals
+                // This is the simplest way. A more advanced method would update the totals via JS.
+                location.reload(); 
+            } else {
+                couponMessageDiv.innerHTML = `<p style="color: red;">${data.message}</p>`;
+                // You might want to reload here too if a previously valid coupon is now invalid
+                location.reload();
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            couponMessageDiv.innerHTML = '<p style="color: red;">An unexpected error occurred.</p>';
+        });
+    });
+});
+</script>
+		<!-- cart page content section end -->
+{% endblock content %}		

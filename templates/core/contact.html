@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <!-- page banner area start -->
+	<div class="page-banner">
+		<img src="{% static 'bg2.jpg' %}" width="1903" height="297" alt="Page Banner" />
+	</div>
+	<!-- page banner area end -->
+	<!-- contact area start -->
+	<div class="map-contact clearfix">
+		<div class="googleMap-info">
+		<iframe title="Google Map de Key West, FL 33040" class="contact-map-size"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-81.779984!3d24.555059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b0a20ec4c0cd%3A0x3a6d2f0f3c3d8e1f!2sKey%20West%2C%20FL%2033040%2C%20USA!5e0!3m2!1sfr!2sfr!4v1728401234567!5m2!1sfr!2sfr"
+    allowfullscreen="" loading="lazy">
+</iframe>
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="main-contact-info">
+							<ul class="contact-info">
+								<li>
+									<h3>contact info</h3>
+								</li>
+								<li>
+									<i class="fa fa-map-marker"></i>
+									<div class="text">
+										<p>101 Duval street, Key West, FL 33040</p>
+									</div>
+								</li>
+								<li>
+									<i class="fa fa-phone"></i>
+									<div class="text">
+										<p>+1 (203) 516-0332</p>
+									</div>
+								</li>
+								<li>
+									<i class="fa fa-paper-plane-o"></i>
+									<div class="text">
+										<p>rexbmxbikecollection@gmail.com</p>
+									</div>
+								</li>
+								<li>
+									<div class="social-share contact-social">
+										<ul class="clearfix">
+											
+											{% for socials in social_links %}
+											<li>
+												<a href="#"><i class="fa fa-google"></i></a>
+											</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- contact-informaion start -->
+	<div class="contact-informaion section-padding-top">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="informaion-text">
+						<h3>Information</h3>
+						<p>Welcome to Rex BMX Bike Collection, your premier destination for vintage BMX bikes, parts, and apparel. Based in the vibrant heart of Key West, Florida, we’re dedicated to preserving the legacy of old school BMX culture while delivering a seamless shopping experience. Below, you’ll find all the details you need to shop with confidence, connect with our team, and join our passionate community. </p>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="contact-form clearfix">
+							<form id="contact-form" action="https://whizthemes.com/mail-php/other/mail.php">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="input-text">
+											<input type="text" name="con_name" placeholder="Your Name" />
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="input-text">
+											<input type="text" name="con_email" placeholder="Email" required />
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="input-text">
+											<input type="text" name="con_subject" placeholder="Subject" />
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="input-text">
+											<textarea name="con_message" placeholder="Message" rows="4"></textarea>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="submit-text">
+											<button class="style-2" type="submit" name="submit">submit</button>
+										</div>
+										<p class="form-message"></p>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
+    

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="page-banner">
+			<img src="{% static 'bg2.jpg' %}" width="1903" height="297" alt="Page Banner" />
+		</div>
+		<!-- page banner area end -->
+		<!-- cart page content section start -->
+		<br>
+		{% if not cart_items %}
+		<h2 class="text-center">Your Cart is Empty</h2>
+		<br>
+		<div class="text-center">
+			<a href="{% url 'products:shop' %}" class="btn btn-primary">Continue shopping  </a>
+		</div>
+		<br>
+		{% else %}
+		<section class="cart-page section-padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="table-responsive table-one margin-minus section-padding-bottom">
+							<table class="spacing-table text-center">
+								<thead>
+									<tr>
+										<th>Product</th>
+										<th>Unit Price</th>
+										<th>QTY</th>
+										<th>Subtotal</th>
+										<th>  </th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for cart_item in cart_items %}
+									<tr>
+										<td class="td-img text-left">
+											<a href="#"><img src="{{cart_item.product.thumbnail.url}}" width="240" height="190" alt="Add Product" /></a>
+											<div class="items-dsc">
+												<p><a href="{{cart_item.product.get_url}}">{{cart_item.product.product_name}}</a></p>
+											</div>
+										</td>
+										<td>{{cart_item.product.price}}</td>
+										<td>
+											<form action="#">
+												<div class="plus-minus">
+													<a href="{% url 'cart:remove_cart' cart_item.product.id %}" class="dec qtybutton">-</a>
+													<input type="text" value="{{cart_item.quantity}}" name="qtybutton" class="plus-minus-box">
+													<a href="{% url 'cart:add_cart' cart_item.product.id %}" class="inc qtybutton">+</a>
+												</div>
+											</form>
+										</td>
+										<td>{{cart_item.sub_total}}</td>
+										<td><a href="{% url 'cart:remove_cart_item' cart_item.product.id %}"><i class="fa fa-trash" title="Remove this product"></i></a></td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="estimate-text">
+							<h3>Free Shipping For</h3>
+							<p>All purchase Above $500 </p>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="estimate-text responsive">
+							<div class="subtotal clearfix">
+								<p>Subtotal: <span class="floatright" id="subtotal">$ {{total}}</span></p>
+							</div>
+							<div class="default-btn text-right">
+								<a class="btn-style" href="{% url 'cart:checkout' %}">PROCCED TO CHECKOUT</a>
+							</div>
+							<br>
+							<a href="{% url 'products:shop' %}" class="btn-style">Continue shopping  </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		{% endif %}
+{% endblock content %}
+    

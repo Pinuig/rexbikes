@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+
+{% endblock head %}
+<style>
+.faq-section {
+    background-color: #f8f9fa; /* A subtle, light grey background for the section */
+}
+
+.accordion-item {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem; /* Softly rounded corners */
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* A subtle shadow for a "lifting" effect */
+}
+
+/* Style the question/button */
+.accordion-button {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #343a40;
+    padding: 1.25rem 1.5rem;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #0d6efd; /* Your theme's primary color */
+    color: #fff;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.125);
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    padding: 1.5rem;
+}
+
+.faq-icon {
+    font-size: 1.25rem;
+    margin-right: 1rem;
+    color: #0d6efd; /* Your theme's primary color */
+}
+
+/* Make the icon white when the accordion is open */
+.accordion-button:not(.collapsed) .faq-icon {
+    color: #fff;
+}
+</style>
+{% block content %}
+<section class="faq-section section-padding py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+
+                <!-- Section Header -->
+                <header class="text-center mb-5">
+                    <h1 class="display-5">Frequently Asked Questions</h1>
+                    <p class="lead text-muted">Your Questions, Answered.</p>
+                </header>
+
+                <!-- Accordion Start -->
+                <div class="accordion" id="faqAccordion">
+
+                    <!-- FAQ Item 1: Shipping -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="bi bi-box-seam faq-icon"></i> How do I receive multiple item orders?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                To ensure the safest and most efficient delivery, orders containing several products are typically shipped in separate packages. Each item is packed with care to meet its specific needs. You will receive tracking information for each individual package as it is dispatched.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2: Placing an Order -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <i class="bi bi-cart-check faq-icon"></i> How do I place an order?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Ordering is simple. Once you have selected your desired product and any available options on the product page, click the "Add to Cart" button. From there, follow the guided steps through our secure checkout process to complete your purchase. We will immediately begin preparing your order and will notify you with tracking details as soon as it ships.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3: Security -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <i class="bi bi-shield-lock faq-icon"></i> How secure is my personal information?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>We adhere to the highest industry standards to protect your personal data. Our store is built on a secure platform that utilizes state-of-the-art security measures to safeguard your information.</p>
+                                <p>Your credit card information is encrypted during transmission using **3D Secure processing** and **Secure Sockets Layer (SSL) technology**, the gold standard for secure online payment processing. Your payment details are used exclusively to complete your requested transaction and are never stored on our servers.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4: Payment Methods -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <i class="bi bi-credit-card faq-icon"></i> What payment methods do you accept?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>We offer a variety of secure payment gateways to complete your purchase. All transactions are protected by Secure Sockets Layer (SSL) encryption. We proudly accept the following payment methods:</p>
+                                <ul>
+                                    <li>Direct Bank Transfer</li>
+                                    <li>Apple Pay</li>
+                                    <li>Zelle</li>
+                                    <li>Chime</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- Accordion End -->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock%}

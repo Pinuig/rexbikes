@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!-- page banner area start -->
+		<div class="page-banner">
+			<img src="{% static 'bg2.jpg' %}" width="1903" height="297" alt="Page Banner" />
+		</div>
+		<!-- page banner area end -->
+		<!-- blog content section start -->
+		<section class="blog-area sigle-blog blog-margin section-padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-lg-9">
+						
+						<div class="single-blog-page">
+							<div class="single-blog-img">
+								<img src="{{posts.blog_image.url}}" width="847" height="565" alt="Single Blog" />
+							</div>
+							<div class="blog-text">
+								<div class="post-title">
+									<h3>{{posts.blog_name}}</h3>
+									<p class="date-com"><span>{{posts.author}}</span> | {{posts.created_at}}  |</p>
+								</div>
+								<p style="text-align: Justify;">{{posts.content}}</p>
+								<div class="italic">
+									<p style="text-align: Justify;">“Under the sun-bleached ramps of '85, where chrome gleamed like a promise and knurled grips bit into calloused palms, we carved the sky on Haro Masters and Skyway Tuffs, our hearts pounding to the rhythm of Dia-Compe brakes and the whisper of KMC chains—each tailwhip a rebellion, every flatland spin a love letter to freedom; oh, old school BMX, you wild, unfiltered soul, with your blue anno dreams and peg-grind scars, you taught us to fly before we learned to fall, and in every survivor frame, every dated decal, your spirit still screams: ride hard, love fierce, and never let the reissues steal your thunder.”,</p>
+								</div>
+							</div>
+							
+						</div>
+					
+						<!-- single post end -->
+					</div>
+					<div class="col-md-4 col-lg-3">
+						<div class="sidebar left-sidebar">
+							<div class="category single-side">
+								<div class="sidebar-title">
+									<h3>Shop categories</h3>
+								</div>
+								<ul>
+									
+									{% for cat in categories %}
+									<li>
+										<a href="{{cat.get_url}}">{{cat.category_name}}</a> <span class="floatright"></span>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+							<div class="single-side clearfix">
+								<div class="sidebar-title">
+									<h3>RECENT ITEMS</h3>
+								</div>
+								<div class="recent-item">
+									{% for render in rendered_products %}
+									<div class="img">
+										<a href="{{render.get_url}}"><img src="{{render.thumbnail.url}}" width="87" height="113" alt="Resent Item" /></a>
+									</div>
+									<div class="text">
+										<a href="{{render.get_url}}"><h5>{{render.product_name}}</h5></a>
+										<div class="ratting">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star gray-star"></i>
+										</div>
+										<p>$<span>{{render.price}}</span></p>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</section><!-- page banner area start -->
+	
+	{% endblock content %}

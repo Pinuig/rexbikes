@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<style>
+.product-image-container {
+  
+  aspect-ratio: 1 / 1;
+  
+  overflow: hidden;
+  background-color: #f0f2f5;
+  transition: transform 0.3s ease;
+}
+.product-image-container img {
+  width: 100%;
+  height: 100%;
+ 
+   */
+  object-fit: cover;
+  
+  object-position: center;
+}
+
+.product-item:hover .product-image-container {
+  transform: scale(1.05); 
+}
+
+.large-slider .slick-slide {
+    aspect-ratio: 1 / 1; 
+    background-color: #f7f7f7;
+    overflow: hidden; 
+    border-radius: 8px; 
+}
+
+.large-slider .slick-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.thumb-slider .slick-slide {
+    margin: 0 5px; 
+    border: 2px solid transparent; 
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 1 / 1;
+}
+
+.thumb-slider .slick-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.thumb-slider .slick-slide:hover img {
+    transform: scale(1.1);
+}
+
+.thumb-slider .slick-current {
+    border-color: #007bff; 
+}
+</style>
+{% endblock head %}
+
+
+{% block content %}
+    <div class="page-banner">
+			<img src="{% static 'bg2.jpg' %}" width="1903" height="297" alt="Page Banner" />
+		</div>
+		<!-- page banner area end -->
+		<!-- product details area start -->
+		<section class="product-details section-padding-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="left">
+							<!-- Single-pro-slider Big-photo start -->
+							<div class="large-slider zoom-gallery" id="large-slider">
+								<div>
+									<img src="{{single_product.thumbnail.url}}" width="555" height="587" alt="" />
+								</div>
+								{% for img in images %}
+								<div>
+									<img src="{{ img.image.url }}" width="555" height="587" alt="{{ single_product.product_name }}" />
+								</div>
+							{% endfor %}
+
+							</div>
+							<!-- Single-pro-slider Big-photo end -->	
+							
+							<!-- Single-pro-slider Small-photo start -->
+							<div class="thumb-slider slider-nav" id="thumb-slider">
+								{% for img in images %}
+								<div>
+									<img src="{{img.image.url}}" width="117" height="123" alt="" />
+								</div>
+								{% endfor %}
+								<div>
+									<img src="{{ single_product.thumbnail.url }}" width="117" height="123" alt="Thumbnail" />
+								</div>
+								
+							</div>
+							<!-- Single-pro-slider Small-photo end -->
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="right">
+							<div class="singl-pro-title">
+								<h3>{{single_product.product_name}} </h3>
+								<h1>${{single_product.price}}</h1>
+								<hr />
+								<p class="text-fa-align-justify" style="text-align: Justify;">{{single_product.parts}}</p>
+								<hr />
+								<div class="actions-btn">
+									<ul class="clearfix text-center">
+										
+										{% if single_product.stock <= 0 %}
+											<h4 class="text-danger">Out Of Stock</h4>
+										{% else %}
+										
+											{% if in_cart %}
+												<li>
+													<a href="#" ><i class="fa fa-check"></i> In Cart</a>
+												</li>
+												<li>
+													<a href="{% url 'cart:cart' %}" class='btn btn-light'><i class="fa fa-eye"></i> View Cart</a>
+												</li>
+											{% else %}
+												<li>
+													<a href="{% url 'cart:add_cart' single_product.id %}"><i class="fa fa-shopping-cart"></i> add to cart</a>
+												</li>
+											{% endif %}
+										{% endif %}
+										
+									</ul>
+								</div>
+								<hr />
+								<div class="categ-tag">
+									<ul class="clearfix">
+										<li>
+											CATEGORIES: 
+											<a href="{{products.get_url}}">{{single_product.category}}</a>
+										</li>
+									</ul>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="pro-des-tab">
+							<div class="tab-menu">
+								<ul class="nav">
+									<li>
+										<a class="active" data-bs-toggle="tab" href="#des">PRODUCT DESCRIPTION</a>
+									</li>
+									
+								</ul>
+							</div>
+							
+							
+							<div class="tab-content margin50">
+								<div class="tab-pane fade show active" id="des">
+									<div class="des-text">
+										<p style="text-align: Justify;">{{single_product.description}}</p>
+										<br />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- product details area end -->
+      <section class="related-area riding-one">
+    <div class="container">
+        <div class="related-title">
+            <h5>Related Products</h5>
+        </div>
+        <div class="row text-center my-5">
+            <div class="col-12">
+                <div class="related-slider single-products">
+                    
+                    {% for related in related_products %}
+                    <div class="product-item-wrap">
+                        <div class="product-item">
+                            <!-- MODIFICATION: Renamed '.pro-img' for clarity and better practice -->
+                            <div class="product-image-container"> 
+                                <a href="{{related.get_url}}">
+                                    <!-- MODIFICATION: Removed inline width/height and added lazy loading -->
+                                    <img src="{{related.thumbnail.url}}" alt="{{related.product_name}}" loading="lazy" />
+                                </a>
+                            </div>
+                            <div class="riding-title clearfix">
+                                <div class="product-title text-start floatleft">
+                                    <a href="{{related.get_url}}"><h3 class="title">{{related.product_name}}</h3></a>
+                                    <div class="ratting">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star gray-star"></i>
+                                    </div>
+                                    <p>$<span>{{related.price}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        <!-- related product section end -->
+		<!-- Add this script at the bottom of the template with the sliders -->
+		<!-- Add this script at the bottom of your template -->
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        // --- 1. INITIALIZE THE SLICK SLIDERS ---
+        
+        // Initialize the large image slider
+        $('#large-slider').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,      // Hide default arrows, we use thumbnails instead
+            fade: true,         // Use a smooth fade effect
+            asNavFor: '#thumb-slider' // This is the magic line that syncs the two sliders
+        });
+        
+        // Initialize the thumbnail navigation slider
+        $('#thumb-slider').slick({
+            slidesToShow: 4,      // Show 4 thumbnails at a time (you can change this)
+            slidesToScroll: 1,
+            asNavFor: '#large-slider', // Syncs back to the large slider
+            dots: false,
+            arrows: true,       // Show arrows to scroll through thumbnails
+            centerMode: false,
+            focusOnSelect: true   // THIS IS THE KEY: it makes the thumbnails clickable
+        });
+
+
+        // --- 2. INITIALIZE THE MAGNIFIC POPUP LIGHTBOX ---
+        
+        // Target the container of the large slides
+        $('#large-slider').magnificPopup({
+            delegate: 'a.zoom-image', // Target the zoom links inside the slider
+            type: 'image',
+            gallery: {
+                enabled: true // This enables the next/previous arrows in the lightbox
+            }
+        });
+
+    });
+</script>
+
+
+		
+{% endblock content %}
+    

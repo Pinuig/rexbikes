@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="page-banner">
+			<img src="{% static 'bg2.jpg' %}" width="1903" height="297" alt="Page Banner" />
+		</div>
+		<!-- page banner area end -->
+		<!-- about us section start -->
+		<section class="about-area section-padding">
+			<div class="container">
+				<div class="row">
+					{% for about in about_info %}
+					<div class="col-md-9 col-lg-6">
+						<div class="about-img">
+							<img src="{{about.about_image.url}}" width="555" height="389" alt="" />
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="about-text">
+							<h3>{{about.about_title}}</h3>
+							<p style="text-align: Justify;">{{about.content}}</p>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				
+			</div>
+		</section>
+		<!-- about us section end -->
+		<!-- choose section start -->
+		<section class="choose-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-text-center">
+						<div class="section-title about-title text-center">
+							<h3>Why choose us</h3>
+							<div class="shape">
+								<img src="img/icon/t-shape.png" width="16" height="16" alt="Title Shape" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<img src="img/about/bg1.jpg" width="1903" height="198" alt="" />
+			<div class="section-padding">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="single-choose">
+								<i class="pe-7s-culture"></i>
+								<h3>Celebrating BMX Heritage</h3>
+								<p style="text-align: Justify;">There are many variati passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words whichWhen you shop with us, you’re not just buying a product—you’re owning a piece of history. Every bike, t-shirt, or accessory tells a story from the era that redefined cycling culture.</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="single-choose">
+								<i class="pe-7s-like"></i>
+								<h3>Authentic Passion for Vintage BMX</h3>
+								<p style="text-align: Justify;">We’re not just a store—we’re die-hard fans of the 70s, 80s, and 90s BMX scene. Whether you’re hunting for a Haro Master, a Mongoose t-shirt, or a classic Redline frame, our curated selection celebrates the golden era of BMX, from freestyle to race.</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="single-choose">
+								<i class="pe-7s-star"></i>
+								<h3>Unique and Exclusive Collection</h3>
+								<p style="text-align: Justify;">Rare Bikes and Parts: Iconic models like the SE Racing PK Ripper or Skyway Tuff wheels, in original condition or expertly restored.
+Retro Clothing: From Haro t-shirts to Oakley Factory Pilot gloves, available in deadstock or faithful reissues.
+Cruisers and More: 20-inch BMX bikes to 24-inch cruisers, catering to every style.</p>
+							</div>
+						</div>
+					</div>
+					<div class="row margin-top">
+						<div class="col-md-4">
+							<div class="single-choose">
+								<i class="pe-7s-world"></i>
+								<h3>Worldwide Shipping and Dedicated Support</h3>
+								<p style="text-align: Justify;">Whether you’re in Key West, Florida, or across the globe, we ship fast and carefully. Our customer service team is here to answer any questions, from product details to compatibility with your BMX setup.</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="single-choose">
+								<i class="pe-7s-rocket"></i>
+								<h3>Seamless and Fast Shopping Experience</h3>
+								<p style="text-align: Justify;">Optimized Website: With modern tech (WebP images, Redis caching), our site loads quickly, even on mobile, for smooth browsing.
+Intuitive Filters: Easily find what you need by brand (Haro, Mongoose, GT), era (70s, 80s, 90s), or style (race, freestyle, clothing).
+Secure Payments: Shop with confidence thanks to our secure transaction system</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="single-choose">
+								<i class="pe-7s-users"></i>
+								<h3>Community and Expertise</h3>
+								<p style="text-align: Justify;">Expert Advice: Our team knows vintage BMX inside out and can guide you to the perfect part or help with your restoration project.
+Community Connection: We partner with collectors, events like Interbike, and platforms like BMX Museum to stay at the heart of the old school scene.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- choose section end -->
+	</div>
+{% endblock content %}

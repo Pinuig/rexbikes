@@ -1,0 +1,346 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>
+        {% block title %}
+            
+        {% endblock title %}
+        </title>
+        <meta name="description" content="1982, 1981, SE Racing, GT, Hutch">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- favicon -->
+		{% get_media_prefix as media_url%}
+		
+		{% if slide.favicon %}
+        <link rel="shortcut icon" type="image/x-icon" href="{{ media_url }}{{slide.favicon}}">
+		{% endif %}
+        <link rel="apple-touch-icon" href="apple-touch-icon.html">
+        <!-- Place favicon.ico in the root directory -->
+		<link rel="preconnect" href="https://fonts.googleapis.com/">
+		<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;1,400;1,500&amp;family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap" rel="stylesheet">
+		<!-- all css here -->
+		<!-- Inside the <head> tag -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Before the closing </body> tag -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Slick requires jQuery -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Magnific Popup JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+		<!-- style css -->
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/pe-icon-7-stroke.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/slick.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+		
+		{% block head %}
+			
+		{% endblock head %}
+			
+    </head>
+    <body>
+        <header>
+			<div class="header-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="left floatleft">
+								<ul>
+									<li><a href="tel:+1 716-288-2079">
+										<i class="fa fa-phone"></i> 
+										+1 716-288-2079</a>
+									</li>
+									<li>
+										<a href="mailto:rexbmxbikecollection@gmail.com"><i class="fa fa-envelope-o"></i> 
+											rexbmxbikecollection@gmail.com</a>
+									</li>
+								</ul>
+							</div>
+							<div class="right floatright">
+								<ul>
+									<li>
+										<form method = "GET" action="{% url 'products:search' %}">
+											<button type="submit" aria-label="Right Align">
+												<i class="fa fa-search"></i>
+											</button>
+											<input type="search" placeholder="Search" name="keyword" value="{{ keyword|default:'' }}"/>
+										</form>
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="sticky-menu" class="header-bottom" >
+				<div class="container">
+					<div class="row">
+						<div class="col-12 header-bottom-bg">
+							<div class="logo floatleft" style="position: fixed;">
+								
+								{% if slide.logo %}
+								<a href="{% url 'index' %}" style="position: sticky; top: 10px; left: 10px; z-index: 10001;">
+									<img src="{{media_url}}{{slide.logo}}"  width="79" height="30" alt="Rexbmx" />
+								</a>
+								{% endif %}
+							</div>
+							<div class="mainmenu text-center floatleft">
+								<nav>
+									<ul>
+										<li><a href="{% url 'index' %}">Home</a>
+										</li>
+										<li>
+											<a href="{% url 'products:shop' %}">products</a>
+											
+											
+											<ul class="mega-menu">
+												{% for category in links %}
+												<li>
+													<ul>
+														<li>
+															<a href="{{category.get_url}}"><i class="fa fa-arrow-circle-o-up"></i> {{category.category_name}}</a>
+														</li>
+													</ul>
+												</li>
+												
+												{% endfor %}
+												
+											</ul>
+											
+										</li>
+										<li><a href="{% url 'core:about_us_view' %}">about</a></li>
+										<li>
+											<a href="{% url 'core:contact_view' %}">contact</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+							<!-- mobile menu start -->
+							<div class="mobile-menu-area">
+								<div class="mobile-menu">
+									<nav id="dropdown">
+										<ul>
+											<li><a href="{% url 'index' %}">Home</a>
+											</li>
+											<li>
+												<a href="{% url 'products:shop' %}">products</a>
+												
+												{% for categorys in links %}
+												<ul>
+													<a href="{{categorys.get_url}}">{{categorys.category_name}}</a>	
+													</li>
+												</ul>
+												{% endfor %}
+													
+											</li>
+											<li><a href="{% url 'core:about_us_view' %}">about</a></li>
+											<li><a href="blog-1.html">blog</a>
+											</li>
+											<li>
+												<a href="{% url 'core:contact_view' %}">contact</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- mobile menu end -->
+							<div class="cart-menu-area floatright">
+								<ul>
+									<li><a href="#"><i class="pe-7s-shopbag"></i> <span>{{cart_count}}</span></a>
+										<ul class="cart-menu">
+											
+											<li class="cart-menu-btn">
+												<a href="{% url 'cart:cart' %}">view cart</a>
+												<a href="{% url 'cart:checkout' %}">checkout</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+        {% block content %}
+
+        {% endblock content %}
+        <footer>
+			<!-- contact area start -->
+			<!-- contact area end -->
+			<!-- footer top start -->
+			<div class="footer-top section-padding">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 col-lg-4">
+							<div class="s-footer-text">
+								<div class="footer-title">
+									<h4>Socail Network</h4>
+								</div>
+								<div class="social-link actions-btn clearfix">
+									<ul>
+										<li>
+											<a href="https://www.facebook.com/share/177kW3kfY1/"><i class="fa fa-facebook"></i></a>
+										</li>
+										<li>
+											<a href="https://www.tiktok.com/@rex.bmx.bike.coll?_t=ZM-90P7ZKTpEr5&_r=1"><i class=" fa fa-tiktok"></i></a>
+										</li>
+									</ul>
+								</div>
+								<h4>Newsletter</h4>
+								<form action="#">
+									<div class="input-text">
+										<input type="text" name="email" placeholder="Email Address" />
+									</div>
+									<div class="submit-text">
+										<input type="submit" name="submit" value="submit" />
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="col-md-4 col-lg-3">
+							<div class="s-footer-text">
+								<div class="footer-title">
+									<h4>Contact</h4>
+								</div>
+								<div class="contact-link">
+									<ul>
+										<li>
+											<span>Email:</span><p>rexbmxbikecollection@gmail.com</p>
+										</li>
+										<li>
+											<span>Phone:</span> <p>+1 716-288-2079</p>
+										</li>
+										<li>
+											<span>Address:</span><p>101 Duval street, Key West, FL 33040</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2 col-lg-2">
+							<div class="s-footer-text">
+								<div class="footer-title">
+									<h4>INFORMATION</h4>
+								</div>
+								<div class="footer-menu">
+									<ul>
+										<li>
+											<a href="{% url 'core:about_us_view' %}">About Us</a>
+										</li>
+										<li>
+											<a href="{% url 'products:shop' %}">Our Store</a>
+										</li>
+										<li>
+											<a href="{% url 'core:return_policy' %}">Return Policy</a>
+										</li>
+										<li>
+											<a href="{% url 'core:faq' %}">FAQ</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2 col-lg-3">
+							<div class="s-footer-text">
+								<div class="footer-title">
+									<h4>My Account</h4>
+								</div>
+								<div class="footer-menu">
+									<ul>
+										<li>
+											<a href="{% url 'core:terms' %}">Terms & Condition</a>
+										</li>
+										<li>
+											<a href="{% url 'core:shipping_policy' %}">Shipping Policy Warranty </a>
+										</li>
+										<li>
+											<a href="{% url 'core:privacy_policy' %}">Privacy Policy</a>
+										</li>
+									</ul>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- footer top end -->
+			<!-- footer bottom start -->
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="left floatleft">
+								<p>Copyright &copy; 2021 - 2025 <a href="#">REXBMXBIKECOLLECTION</a>ALL RIGHTS RESERVED</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- footer bottom end -->
+		</footer>
+		<!-- footer section end -->
+
+		<!--Start of Tawk.to Script-->
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/68ee35ac1ad57d194f9bb083/1j7h83bbe';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+		
+		<!-- Scroll To Top -->
+		<a class="scroll-to-top" href="#">
+			<i class="fa fa-angle-double-up"></i>
+		</a>
+		
+		<!-- all js here -->
+		<!-- jquery latest version -->
+        <script src="{% static 'js/vendor/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/vendor/jquery-migrate-3.3.2.min.js' %}"></script>
+		<!-- modernizr js -->
+        <script src="{% static 'js/vendor/modernizr-3.11.2.min.js' %}"></script>
+		<!-- bootstrap js -->
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+		
+		
+		<!-- slick slider js -->
+        <script src="{% static 'js/slick.min.js' %}"></script>
+		<!-- jquery-ui js -->
+        <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+		<!-- magnific-popup js -->
+        <script src="{% static 'js/magnific-popup.min.js' %}"></script>
+		<!-- countdown js -->
+        <script src="{% static 'js/countdown.js' %}"></script>
+		<!-- meanmenu js -->
+        <script src="{% static 'js/jquery.meanmenu.js' %}"></script>
+		<!-- main js -->
+        <script src="{% static 'js/main.js' %}"></script>
+
+    </body>
+
+</html>

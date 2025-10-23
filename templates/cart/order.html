@@ -1,0 +1,185 @@
+
+{% load static %}
+{% block head %}
+</title>
+        <meta name="description" content="1982, 1981, SE Racing, GT, Hutch">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- favicon -->
+		{% get_media_prefix as media_url%}
+		
+		{% if slide.favicon %}
+        <link rel="shortcut icon" type="image/x-icon" href="{{ media_url }}{{slide.favicon}}">
+		{% endif %}
+        <link rel="apple-touch-icon" href="apple-touch-icon.html">
+        <!-- Place favicon.ico in the root directory -->
+		<link rel="preconnect" href="https://fonts.googleapis.com/">
+		<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;1,400;1,500&amp;family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap" rel="stylesheet">
+		<!-- all css here -->
+		<!-- style css -->
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/pe-icon-7-stroke.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/slick.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+     <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .invoice-container {
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+            max-width: 800px;
+        }
+        .invoice-header {
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 30px;
+        }
+    </style>
+{% endblock head %}
+
+
+{% block content %}
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .invoice-container {
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+            max-width: 800px;
+        }
+        .invoice-header {
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 30px;
+        }
+        /* Style for the status badge */
+        .status-badge {
+            font-size: 1rem;
+            padding: .5em .8em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container invoice-container">
+        <div class="invoice-header text-center">
+            <h2>Invoice</h2>
+            <p>Thank you for your order!</p>
+        </div>
+        <div class="row mb-4 pb-3 border-bottom">
+            <div class="col-md-6">
+                <h5>Order Number: {{ order.order_number }}</h5>
+                
+                <p class="mb-0">Date: {{ order.created_at|date:"F d, Y" }}</p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <h5>Status: <span class="badge badge-warning status-badge">{{ order.status }}</span></h5>
+                
+                <p class="mb-0">Payment Method: <strong>{{ order.payment_method }}</strong></p>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h4>Billing Address</h4>
+                <p>
+                    {{ order.billing_first_name }} {{ order.billing_last_name }}<br>
+                    {{ order.billing_address }}<br>
+                    {{ order.billing_city }}<br>
+                    {{ order.billing_email }}<br>
+                    {{ order.billing_phone }}
+                </p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <h4>Shipping Address</h4>
+                <p>
+                    {{ order.shipping_first_name }} {{ order.shipping_last_name }}<br>
+                    {{order.shipping_email}}<br>
+                    {{ order.shipping_address }}<br>
+                    {{ order.shipping_city }}<br>
+                    {{ order.shipping_phone }}
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Order Details</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>U. Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order_items %}
+                        <tr>
+                            <td>{{ item.product.product_name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>${{ item.product_price }}</td>
+                            <td>${{ item.total}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot class="font-weight-bold">
+                        <tr>
+                            <td colspan="3" class="text-right">Subtotal:</td>
+                            <td>${{ order.total|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-right">Shipping:</td>
+                            
+                            {% if order.order_total >= 500 %}
+                                <td>Free</td>
+                            {% else %}
+                                <td>${{ order.shipping_charge }}</td>
+                            {% endif %}
+                        </tr>
+                        
+                        {% if order.discount > 0 %}
+                        <tr class="text-success">
+                            <td colspan="3" class="text-right h5">Coupon Discount:</td>
+                            <td class="h5">- ${{ order.discount|floatformat:2 }}</td>
+                        </tr>
+                        
+                        {% endif %}
+                        <tr class="bg-light">
+                            <td colspan="3" class="text-right h5">Grand Total:</td>
+                            <td class="text-right h5">${{ order.order_total|floatformat:2 }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+     <a href="{% url 'cart:download_invoice' order.order_number %}" class="btn btn-success">
+            Download Invoice as PDF
+        </a>
+         <div class="text-center mt-4">
+            <a href="{% url 'products:shop' %}" class="btn btn-primary">Continue Shopping</a>
+        </div>
+</body>
+
+{% endblock content %}
+

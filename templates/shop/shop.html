@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    shop - Rex Bikes
+{% endblock title %}
+{% block head %}
+<style>
+#gird .pro-img img,
+#list .pro-img img,
+.recent-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.product-item {
+  border: 1px solid #e9e9e9;
+  border-radius: 4px; 
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+#gird .pro-img {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #f8f8f8; 
+}
+#list .pro-img {
+  width: 270px;
+  aspect-ratio: 3 / 4; 
+  overflow: hidden;
+  background-color: #f8f8f8;
+}
+.recent-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  transition: background-color 0.3s ease;
+}
+.recent-item:hover {
+  background-color: #f8f8f8; 
+}
+.recent-item__image {
+  width: 65px; 
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 4px; 
+  flex-shrink: 0;
+  margin-right: 15px;
+}
+.product-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.07);
+}
+
+.product-item:hover .pro-img img {
+  transform: scale(1.05);
+}
+</style>
+{% endblock head %}
+
+
+
+
+{% block content %}
+    <div class="page-banner">
+        <img src="{% static 'bg2.jpg' %}" width="1903" height="297" alt="Page Banner" />
+    </div>
+
+		{% if 'search' in  request.path %}
+		<h2 class="title-page">Search result</h2>
+		{% else %}
+		
+		{% endif %}
+    <section class="product-content section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 order-2 order-lg-1 pt-5 pt-lg-0">
+                <div class="sidebar left-sidebar">
+                    <div class="category single-side">
+                        <div class="sidebar-title">
+                            <h3>Shop categories</h3>
+                        </div>
+                        <select class="category-dropdown" onchange="window.location.href=this.value;">
+                            <option value="" disabled selected>Select category</option>
+                            <a href="{% url 'products:shop' %}"><option value="">All category</option></a>
+                            {% for categorys in links %}
+                                <option value="{{categorys.get_url}}">{{categorys.category_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="single-side clearfix">
+                        <div class="sidebar-title">
+                            <h3>RECENT ITEMS</h3>
+                        </div>
+                        <div class="recent-item-list">
+                            {% for recent_productss in recent_products %}
+                            <a class="recent-item" href="{{recent_productss.get_url}}">
+                                <div class="recent-item__image">
+                                    <!-- MODIFIED: No inline sizes. Alt text is dynamic. -->
+                                    <img src="{{recent_productss.thumbnail.url}}" alt="{{recent_productss.product_name}}" />
+                                </div>
+                                <div class="recent-item__text">
+                                    <h5>{{recent_productss.product_name}}</h5>
+                                    <div class="ratting"><!-- Ratting stars --></div>
+                                    <p>$<span>{{recent_productss.price}}</span></p>
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 order-1 order-lg-2">
+                <div class="shop-menu clearfix">
+                    <div class="left floatleft">
+                        <div class="tab-menu view-mode nav">
+                            <a class="list active" data-bs-toggle="tab" href="#list"><i class="fa fa-bars"></i></a>
+                            <a class="gird" data-bs-toggle="tab" href="#gird"><i class="fa fa-th"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    <!-- ========== GRID VIEW ========== -->
+                    <div class="tab-pane fade text-center" id="gird">
+                        <div class="single-products row">
+                            {% for products in product %}
+                                <div class="col-md-4">
+                                    <div class="product-item margin40">
+                                        <div class="pro-img">
+                                            <!-- MODIFIED: No inline sizes, added lazy loading for performance. -->
+                                            <a href="{{products.get_url}}"><img src="{{products.thumbnail.url}}" alt="{{products.product_name}}" loading="lazy" /></a>
+                                            <div class="actions-btn">
+                                                <ul class="clearfix">
+                                                    <li><a href="{% url 'cart:add_cart' products.id %}"><i class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="{{products.get_url}}"><i class="fa fa-eye"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-title">
+                                            <a href="{{products.get_url}}"><h3 class="title">{{products.product_name}}</h3></a>
+                                            <div class="ratting"><!-- ...ratting stars... --></div>
+                                            <p>$<span>{{products.price}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- ========== LIST VIEW ========== -->
+                    <div class="list-view tab-pane fade active show" id="list">
+                        <!-- FIX: The loop now correctly creates a new product container for each item. -->
+                        {% for products in product %}
+                            <div class="single-product margin40 clearfix">
+                                <div class="left">
+                                    <div class="product-item margin-top">
+                                        <div class="pro-img">
+                                            <!-- MODIFIED: No inline sizes, added lazy loading. -->
+                                            <a href="{{products.get_url}}"><img src="{{products.thumbnail.url}}" alt="{{products.product_name}}" loading="lazy" /></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <div class="product-item">
+                                        <div class="product-title">
+                                            <a href="{{products.get_url}}"><h4>{{products.product_name}}</h4></a>
+                                            <div class="ratting"><!-- ...ratting stars... --></div>
+                                            <p>$<span>{{products.price}}</span></p>
+                                            <hr />
+                                            <p class="list-p">{{products.description|truncatewords:20}}</p>
+                                            <hr />
+                                        </div>
+                                        <div class="actions-btn">
+                                            <ul class="clearfix text-center">
+                                                <li><a href="{% url 'cart:add_cart' products.id %}"><i class="fa fa-shopping-cart"></i></a></li>
+                                                <li><a href="{{products.get_url}}"><i class="fa fa-eye"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+		<!-- product content section end -->
+		
+{% endblock content %}
+    

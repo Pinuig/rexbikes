@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<style>
+   .shipping-policy-section {
+        padding: 80px 0;
+    }
+
+    .page-header {
+        margin-bottom: 4rem;
+    }
+
+    .page-header h1 {
+        font-weight: 700;
+        color: #2c3e50;
+    }
+
+    .page-header .lead {
+        font-size: 1.25rem;
+        color: #555;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .policy-card {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .policy-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .policy-card h3 {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 0.75rem;
+    }
+
+    .policy-card .bi {
+        color: #007bff;
+        font-size: 1.5rem;
+        margin-right: 15px;
+    }
+
+    .policy-card p {
+        line-height: 1.8;
+        color: #444;
+    }
+    
+    a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+    }
+
+    a:hover {
+        color: #0056b3;
+    }
+</style>
+{% endblock %}
+{% block content %}
+    <div class="policy-card">
+                <h3><i class="bi bi-truck"></i>Free Delivery (U.S. Only)</h3>
+                <p>We are pleased to offer free standard shipping within the United States on all orders unless otherwise explicitly stated. This offer applies to the 48 contiguous states. Alaska and Hawaii may be subject to additional charges.</p>
+            </div>
+
+            <div class="policy-card">
+                <h3><i class="bi bi-globe-americas"></i>International Shipping</h3>
+                <p>For our international customers, we are happy to ship globally. Buyers outside the U.S. should contact us via email at <a href="mailto:rexbmxbikecollection@gmail.com">rexbmxbikecollection@gmail.com</a> for shipping rates, delivery options, and insurance details before placing an order to ensure accurate pricing.</p>
+            </div>
+
+            <div class="policy-card">
+                <h3><i class="bi bi-box-seam"></i>Our Carriers</h3>
+                <p>To ensure reliable and safe delivery, we ship through trusted services such as UPS BikeFlights, FedEx, or USPS. The carrier used will depend on your location, item size, and the service selected at checkout.</p>
+            </div>
+
+            <div class="policy-card">
+                <h3><i class="bi bi-clock-history"></i>Processing Time</h3>
+                <p>We are committed to getting your order to you as quickly as possible. Most items ship within <strong>3–5 business days</strong> once payment and any applicable insurance are confirmed. You will receive a notification with tracking information once your order has been dispatched.</p>
+            </div>
+
+            <div class="policy-card">
+                <h3><i class="bi bi-shield-exclamation"></i>Shipping Liability</h3>
+                <p>Once an item has been shipped and a tracking number provided, we are not responsible for any delays, loss, or damage caused by the carrier. We highly recommend purchasing shipping insurance for valuable items. Please contact us if you wish to add insurance to your order.</p>
+            </div>
+
+            <div class="policy-card">
+                <h3><i class="bi bi-person-check"></i>Accuracy of Information</h3>
+                <p>To avoid delays or misdelivery, customers are responsible for providing a complete and accurate shipping address at the time of purchase. Please double-check your information before finalizing your order. We are not responsible for packages delivered to an incorrect address provided by the customer.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

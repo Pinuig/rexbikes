@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+*.env
+
+# Django
+*.log
+*.pot
+*.pyc
+db.sqlite3
+staticfiles/
+media/
+
+# cPanel-specific
+passenger.log
