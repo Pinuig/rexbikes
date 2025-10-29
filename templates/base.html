@@ -18,35 +18,36 @@
 		{% if slide.favicon %}
         <link rel="shortcut icon" type="image/x-icon" href="{{ media_url }}{{slide.favicon}}">
 		{% endif %}
-        <link rel="apple-touch-icon" href="apple-touch-icon.html">
+        {% comment %} <link rel="apple-touch-icon" href="apple-touch-icon.html">
         <!-- Place favicon.ico in the root directory -->
 		<link rel="preconnect" href="https://fonts.googleapis.com/">
-		<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;1,400;1,500&amp;family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin> {% endcomment %}
+		{% comment %} <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;1,400;1,500&amp;family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&amp;display=swap" rel="stylesheet">
 		<!-- all css here -->
 		<!-- Inside the <head> tag -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> {% endcomment %}
 <!-- Before the closing </body> tag -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Slick requires jQuery -->
+{% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Slick requires jQuery -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> {% endcomment %}
     
     <!-- Magnific Popup JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-		<!-- style css -->
-		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/pe-icon-7-stroke.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/slick.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+		<!-- style css --> {% endcomment %}
+		{% load static %}
+		<link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static '/css/animate.css' %}">
+        <link rel="stylesheet" href="{% static '/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static '/css/pe-icon-7-stroke.min.css' %}">
+        <link rel="stylesheet" href="{% static '/css/meanmenu.min.css' %}">
+        <link rel="stylesheet" href="{% static '/css/slick.min.css' %}">
+        <link rel="stylesheet" href="{% static '/css/jquery-ui.min.css' %}">
+        <link rel="stylesheet" href="{% static '/css/style.css' %}">
+        <link rel="stylesheet" href="{% static '/css/responsive.css' %}">
 		
 		{% block head %}
 			
@@ -96,7 +97,7 @@
 								
 								{% if slide.logo %}
 								<a href="{% url 'index' %}" style="position: sticky; top: 10px; left: 10px; z-index: 10001;">
-									<img src="{{media_url}}{{slide.logo}}"  width="79" height="30" alt="Rexbmx" />
+									<img src="{{slide.logo.url}}"  width="79" height="30" alt="Rexbmx" />
 								</a>
 								{% endif %}
 							</div>
@@ -320,26 +321,26 @@ s0.parentNode.insertBefore(s1,s0);
 		
 		<!-- all js here -->
 		<!-- jquery latest version -->
-        <script src="{% static 'js/vendor/jquery-3.6.0.min.js' %}"></script>
-        <script src="{% static 'js/vendor/jquery-migrate-3.3.2.min.js' %}"></script>
+        <script src="{% static '/js/vendor/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static '/js/vendor/jquery-migrate-3.3.2.min.js' %}"></script>
 		<!-- modernizr js -->
-        <script src="{% static 'js/vendor/modernizr-3.11.2.min.js' %}"></script>
+        <script src="{% static '/js/vendor/modernizr-3.11.2.min.js' %}"></script>
 		<!-- bootstrap js -->
-        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
 		
 		
 		<!-- slick slider js -->
-        <script src="{% static 'js/slick.min.js' %}"></script>
+        <script src="{% static '/js/slick.min.js' %}"></script>
 		<!-- jquery-ui js -->
-        <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+        <script src="{% static '/js/jquery-ui.min.js' %}"></script>
 		<!-- magnific-popup js -->
-        <script src="{% static 'js/magnific-popup.min.js' %}"></script>
+        <script src="{% static '/js/magnific-popup.min.js' %}"></script>
 		<!-- countdown js -->
-        <script src="{% static 'js/countdown.js' %}"></script>
+        <script src="{% static '/js/countdown.js' %}"></script>
 		<!-- meanmenu js -->
-        <script src="{% static 'js/jquery.meanmenu.js' %}"></script>
+        <script src="{% static '/js/jquery.meanmenu.js' %}"></script>
 		<!-- main js -->
-        <script src="{% static 'js/main.js' %}"></script>
+        <script src="{% static '/js/main.js' %}"></script>
 
     </body>
 

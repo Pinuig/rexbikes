@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse
-
 # Create your models here.
 
 class Category(models.Model):
@@ -58,6 +57,7 @@ class slider(models.Model):
     title_slider = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='slider/', blank=True, null=True)
+    
     link = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='logo/', blank=True, null=True)
     favicon = models.ImageField(upload_to='favicon/', blank=True, null=True)

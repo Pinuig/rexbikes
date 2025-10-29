@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Your Rex Bikes Order Confirmation</title>
+</head>
+<body style="font-family: Arial, sans-serif; color: #333;">
+    <h2 style="color: #1a1a1a;">Thank You For Your Order, {{ order.billing_first_name }}!</h2>
+    <p>We've received your order and are getting it ready. You can find the details below.</p>
+    
+    <hr>
+    
+    <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+    <p><strong>Order Date:</strong> {{ order.created_at|date:"F j, Y" }}</p>
+
+    <h3>Order Summary</h3>
+    <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order_items %}
+            <tr>
+                <td>{{ item.product.product_name }}</td>
+                <td style="text-align: center;">{{ item.quantity }}</td>
+                <td style="text-align: right;">${{ item.product_price|floatformat:2 }}</td>
+                <td style="text-align: right;">${{ item.total|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot style="font-weight: bold;">
+            <tr>
+                <td colspan="3" style="text-align: right;">Subtotal:</td>
+                <td style="text-align: right;">${{ order.total|floatformat:2 }}</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right;">Shipping:</td>
+                <td style="text-align: right;">${{ order.shipping_charge|floatformat:2 }}</td>
+            </tr>
+            {% if order.discount > 0 %}
+            <tr>
+                <td colspan="3" style="text-align: right;">Coupon Discount:</td>
+                <td style="text-align: right;">- ${{ order.discount|floatformat:2 }}</td>
+            </tr>
+            {% endif %}
+            <tr style="background-color: #f2f2f2; font-size: 1.1em;">
+                <td colspan="3" style="text-align: right;">Grand Total:</td>
+                <td style="text-align: right;">${{ order.order_total|floatformat:2 }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <table style="width: 100%; margin-top: 30px;">
+        <tr>
+            <td style="width: 50%; vertical-align: top;">
+                <h4>Billing Address</h4>
+                <p>
+                    {{ order.billing_first_name }} {{ order.billing_last_name }}<br>
+                    {{ order.billing_address }}<br>
+                    {{ order.billing_city }}<br>
+                    {{ order.billing_email }}
+                </p>
+            </td>
+            <td style="width: 50%; vertical-align: top;">
+                <h4>Shipping Address</h4>
+                <p>
+                    {{ order.shipping_first_name }} {{ order.shipping_last_name }}<br>
+                    {{ order.shipping_address }}<br>
+                    {{ order.shipping_city }}
+                </p>
+            </td>
+        </tr>
+    </table>
+    {% if order.order_note %}
+    <div style="background-color: #fef9c3; border-left: 5px solid #f59e0b; padding: 15px; margin-top: 20px;">
+        <h4 style="margin-top: 0;">Customer's Note:</h4>
+        <p style="margin-bottom: 0;"><em>"{{ order.order_note }}"</em></p>
+    </div>
+    {% endif %}
+    
+    <p style="margin-top: 20px;">If you have any questions, please reply to this email.</p>
+    <p>Thank you for shopping with us!</p>
+    <p><strong>The Rex Bikes Team</strong></p>
+</body>
+</html>

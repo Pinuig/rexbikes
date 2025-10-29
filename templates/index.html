@@ -8,63 +8,147 @@
 
 {% block head %}
 <style>
-	/*
- * UNIFIED CSS FOR RESPONSIVE PRODUCT & BLOG IMAGES
- */
+    
+    .product-item .pro-img {
+        display: block;
+        overflow: hidden;
+        aspect-ratio: 4 / 3;
+        background-color: #f5f5f5;
+        margin-bottom: 15px;
+    }
 
-/* --- For All Product Grid Images --- */
-/* This targets the containers in "Featured," "New Arival," and "Others" sections. */
-.product-item .pro-img {
-    display: block; /* Good practice for link-wrapped containers */
-    overflow: hidden; /* Hides any part of the image that overflows the frame */
+    .product-item .pro-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+   
+    .blog-item .blog-img {
+        display: block;
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+        background-color: #f5f5f5;
+    }
+
+    .blog-item .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+  
+    .product-item:hover .pro-img img,
+    .blog-item:hover .blog-img img {
+        transform: scale(1.05);
+    }
+
+    .featured-slider .slick-prev,
+    .featured-slider .slick-next {
+
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+
+        
+        background-color: rgba(255, 255, 255, 0.85); 
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%; 
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+        cursor: pointer;
+        
+       
+        font-size: 0;
+        color: transparent;
+
+      
+        transition: all 0.3s ease;
+    }
+
+ 
+.featured-slider .slick-prev,
+.featured-slider .slick-next {
+   
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); 
+    z-index: 10; 
+    width: 50px;
+    height: 50px;
+
+   
+    background-color: rgba(255, 255, 255, 0.85); 
+    border-radius: 50%; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    cursor: pointer;
     
-    /* === This is the key: Set a consistent aspect ratio for the frame === */
-    aspect-ratio: 4 / 3; /* A common, balanced ratio. Adjust if needed (e.g., 1/1 for square). */
-    
-    background-color: #f5f5f5; /* A light grey placeholder while images load */
-    margin-bottom: 15px; /* Ensures consistent spacing below the image */
+
+    font-size: 0;
+    color: transparent;
+
+
+    transition: all 0.3s ease;
 }
 
-.product-item .pro-img img {
+.featured-slider .slick-prev {
+    left: -20px;
+}
+
+.featured-slider .slick-next {
+    right: -20px; 
+}
+
+
+.featured-slider .slick-prev::before,
+.featured-slider .slick-next::before {
+  
+    font-family: "Font Awesome 6 Free"; 
+    font-weight: 900; 
+    font-size: 20px; 
+    color: #333; 
+    
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
-    
-    /* === This is the magic: The image covers the frame without distortion === */
-    object-fit: cover; 
-    
-    transition: transform 0.4s ease; /* Adds a professional zoom effect on hover */
+    transition: color 0.3s ease;
 }
 
-/* --- For All Blog Post Images --- */
-.blog-item .blog-img {
-    display: block;
-    overflow: hidden;
-    
-    /* Widescreen aspect ratio is common for blog hero images */
-    aspect-ratio: 16 / 9; 
-    
-    background-color: #f5f5f5;
+
+.featured-slider .slick-prev::before {
+    content: '\f053'; 
 }
 
-.blog-item .blog-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
+
+.featured-slider .slick-next::before {
+    content: '\f054'; 
 }
 
-/* --- Optional: Professional Hover Effect --- */
-/* Makes the UI feel more interactive and premium */
-.product-item:hover .pro-img img,
-.blog-item:hover .blog-img img {
-    transform: scale(1.05); /* Slightly zoom in on the image on hover */
+
+.featured-slider .slick-prev:hover,
+.featured-slider .slick-next:hover {
+    background-color: #ffffff; 
+    transform: translateY(-50%) scale(1.1); 
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); 
+}
+
+.featured-slider .slick-prev:hover::before,
+.featured-slider .slick-next:hover::before {
+    color: #000; 
 }
 </style>
 {% endblock head %}
 
 {% block content %}
 <!-- slider section start -->
-		<div class="slider-area slider-one clearfix">}
+		<div class="slider-area slider-one clearfix">
 			<div class="slider" >
 				<div class="slider-item" data-bg-image="{{slide.image.url}}">
 					<div class="slider-overlay" style="background: rgba(0, 0, 0, 0.85);"></div>
@@ -121,10 +205,10 @@
                             <div class="actions-btn">
                                 <ul class="clearfix">
                                     <li>
-                                        <a href="{% url 'cart:add_cart' products.id %}"><i class="fa fa-shopping-cart"></i></a>
+                                        <a href="{% url 'cart:add_cart' products.id %}"><i class="fa fa-shopping-cart">Shop</i></a>
                                     </li>
                                     <li>
-                                        <a href="{{products.get_url}}"><i class="fa fa-eye"></i></a>
+                                        <a href="{{products.get_url}}"><i class="fa fa-eye">View</i></a>
                                     </li>
                                 </ul>
                             </div>

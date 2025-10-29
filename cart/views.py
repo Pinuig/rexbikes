@@ -12,6 +12,9 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.db.models import F
 from django.db import transaction
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 # Create your views here.
 
@@ -193,12 +196,37 @@ def place_order(request):
             order.shipping_email = request.POST.get('shipping_email')
             order.shipping_phone = request.POST.get('shipping_phone')
             order.payment_method = request.POST.get('payment_method')
+            order.order_note = request.POST.get('message')
             order.save()
             
             yr = int(datetime.date.today().strftime('%Y'))
             mt = int(datetime.date.today().strftime('%m'))
             order.order_number = f"{yr}{mt:02d}{order.id}" 
             order.save() 
+            
+            order_i = OrderItem.objects.filter(order=order)
+
+            try:
+                mail_subject = f'Your Rex Bikes Order Confirmation - #{order.order_number}'
+                email_context = {
+                    'order': order,
+                    'order_i': order_i,
+                }
+                html_message = render_to_string('cart/order_confirmation_customer.html', email_context)
+                plain_message = render_to_string('cart/order_confirmation_customer.txt', email_context)
+
+                send_mail(
+                    subject=mail_subject,
+                    message=plain_message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[order.billing_email],
+                    html_message=html_message,
+                    fail_silently=False, 
+                )
+            except Exception as e:
+                print(f"Customer confirmation email failed for order {order.order_number}: {e}")
+
+            
 
             for item in cart_items:
                 OrderItem.objects.create(
@@ -221,7 +249,8 @@ def place_order(request):
             order_items = OrderItem.objects.filter(order=order)
             context = { 
                 'order': order, 
-                'order_items': order_items,  
+                'order_items': order_items, 
+                'order_i': order_i,
                 'grand_total_before_coupon': grand_total_before_coupon, 
             }
             return render(request, 'cart/order.html', context) 
@@ -238,9 +267,17 @@ def download_invoice(request, order_number):
         # You can return a 404 page or a simple message
         return HttpResponse("Invoice not found.", status=404)
     
-    grand_total_before_coupon = order.total + order.shipping_charge
+   
+    
+    # grand_total_before_coupon = order.total + order.shipping_charge
+    grand_total_before_coupon = order.order_total
+
+    # for item in order_items:
+    #     item.total = item.quantity * item.product.price
+
     for item in order_items:
-        item.total = item.quantity * item.product.price
+        item._computed_total = Decimal(item.quantity) * Decimal(item.product.price)
+
 
     context = {
         'order': order,
